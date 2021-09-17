@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
+    "repository": "https://github.com/temujins/ts-arkanoid-game",
     "scripts": {
         "start": "parcel serve src/index.html",
         "watch": "parcel watch src/index.html"
