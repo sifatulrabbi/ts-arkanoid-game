@@ -14,7 +14,7 @@ import {
 
 export function createBricks(): Brick[] {
     return LEVEL.reduce((ack, element, i): Brick[] => {
-        const row = Math.floor(i + 1) / STAGE_ROWS;
+        const row = Math.floor(i + 1) / STAGE_COLS;
         const col = i % STAGE_COLS;
 
         const x = STAGE_PADDING + col * (BRICK_WIDTH + BRICK_PADDING);
