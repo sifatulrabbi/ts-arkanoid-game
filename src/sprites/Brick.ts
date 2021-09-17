@@ -26,7 +26,7 @@ export class Brick {
         return this.brickHeight;
     }
 
-    get post(): Vector {
+    get pos(): Vector {
         return this.position;
     }
 
