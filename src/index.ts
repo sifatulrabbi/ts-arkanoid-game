@@ -35,7 +35,7 @@ function gameLoop(view: CanvasView, bricks: Brick[], paddle: Paddle, ball: Ball)
     view.drawSprite(paddle);
     view.drawSprite(ball);
 
-    ball.modeBall();
+    ball.moveBall();
 
     // Move paddle and check so it won't exit the canvas
     if (
@@ -69,12 +69,12 @@ function startGame(view: CanvasView): void {
         PADDLE_IMAGE
     );
     const ball = new Ball(
+        BALL_SPEED,
         BALL_SIZE,
         {
             x: BALL_STARTX,
             y: BALL_STARTY,
         },
-        BALL_SPEED,
         BALL_IMAGE
     );
 

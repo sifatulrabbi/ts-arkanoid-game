@@ -1,18 +1,18 @@
 import { Vector } from '../types';
 
 export class Ball {
-    private ballSpeed: Vector;
+    private speed: Vector;
     private ballImage: HTMLImageElement = new Image();
 
     constructor(
+        speed: number,
         private ballSize: number,
         private position: Vector,
-        speed: number,
         image: string
     ) {
         this.ballSize = ballSize;
         this.position = position;
-        this.ballSpeed = {
+        this.speed = {
             x: speed,
             y: -speed,
         };
@@ -32,19 +32,19 @@ export class Ball {
     }
 
     get image(): HTMLImageElement {
-        return this.image;
+        return this.ballImage;
     }
 
     public changeYDirection(): void {
-        this.ballSpeed.y = -this.ballSpeed.y;
+        this.speed.y = -this.speed.y;
     }
 
     public changeXDirection(): void {
-        this.ballSpeed.x = -this.ballSpeed.x;
+        this.speed.x = -this.speed.x;
     }
 
-    public modeBall(): void {
-        this.pos.x += this.ballSpeed.x;
-        this.pos.y += this.ballSpeed.y;
+    public moveBall(): void {
+        this.pos.x += this.speed.x;
+        this.pos.y += this.speed.y;
     }
 }
