@@ -2,6 +2,8 @@ import { CanvasView } from './views/CanvasView';
 import { Ball } from './sprites/Ball';
 import { Brick } from './sprites/Brick';
 import { Paddle } from './sprites/Paddle';
+import { Collision } from './collision';
+
 import PADDLE_IMAGE from './images/paddle.png';
 import BALL_IMAGE from './images/ball.png';
 import {
@@ -13,7 +15,8 @@ import {
     BALL_SIZE,
     BALL_STARTX,
     BALL_STARTY,
-} from './setup';
+} from './gameData';
+
 import { createBricks } from './helpers';
 
 let gameOver = false;
@@ -21,15 +24,56 @@ let score = 0;
 
 function setGameOver(view: CanvasView) {
     view.drawInfo('Game Over!');
-    gameOver = false;
+    gameOver = true;
 }
 
 function setGameWin(view: CanvasView) {
     view.drawInfo('Game Won!');
-    gameOver = false;
+    gameOver = true;
 }
 
-function gameLoop(view: CanvasView, bricks: Brick[], paddle: Paddle, ball: Ball): void {
+function checkMovePaddle(paddle: Paddle): void {
+    if (
+        (paddle.isMovingLeft && paddle.pos.x > 0) ||
+        (paddle.isMovingRight && paddle.pos.x < view.canvas.width - paddle.width)
+    ) {
+        paddle.movePaddle();
+    }
+}
+
+function checkBallPosition(
+    collision: Collision,
+    ball: Ball,
+    paddle: Paddle,
+    view: CanvasView,
+    bricks: Brick[]
+): void {
+    collision.checkBallCollision(ball, paddle, view);
+    const collided = collision.isCollidingBricks(ball, bricks);
+
+    if (collided) {
+        score += 1;
+        view.drawScore(score);
+    }
+
+    if (collision.checkOutOfCanvas(ball, view)) {
+        setGameOver(view);
+    }
+
+    if (bricks.length === 0) {
+        setGameWin(view);
+    }
+}
+
+function gameLoop(
+    view: CanvasView,
+    bricks: Brick[],
+    paddle: Paddle,
+    ball: Ball,
+    collision: Collision
+): void {
+    if (gameOver) return;
+
     view.clear();
     view.drawBricks(bricks);
     view.drawSprite(paddle);
@@ -37,21 +81,17 @@ function gameLoop(view: CanvasView, bricks: Brick[], paddle: Paddle, ball: Ball)
 
     ball.moveBall();
 
-    // Move paddle and check so it won't exit the canvas
-    if (
-        (paddle.isMovingLeft && paddle.pos.x > 0) ||
-        (paddle.isMovingRight && paddle.pos.x < view.canvas.width - paddle.width)
-    ) {
-        paddle.movePaddle();
-    }
+    checkMovePaddle(paddle);
+    checkBallPosition(collision, ball, paddle, view, bricks);
 
-    requestAnimationFrame(() => gameLoop(view, bricks, paddle, ball));
+    requestAnimationFrame(() => gameLoop(view, bricks, paddle, ball, collision));
 }
 
 function resetCanvas(): void {
     score = 0;
     view.drawInfo('');
     view.drawScore(0);
+    gameOver = false;
 }
 
 function startGame(view: CanvasView): void {
@@ -77,8 +117,9 @@ function startGame(view: CanvasView): void {
         },
         BALL_IMAGE
     );
+    const collision = new Collision();
 
-    gameLoop(view, bricks, paddle, ball);
+    gameLoop(view, bricks, paddle, ball, collision);
 }
 
 // Create a new view

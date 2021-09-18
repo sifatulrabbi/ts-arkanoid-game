@@ -5,12 +5,11 @@ import {
     LEVEL,
     STAGE_COLS,
     STAGE_PADDING,
-    STAGE_ROWS,
     BRICK_HEIGHT,
     BRICK_WIDTH,
     BRICK_PADDING,
     BRICK_ENERGY,
-} from './setup';
+} from './gameData';
 
 export function createBricks(): Brick[] {
     return LEVEL.reduce((ack, element, i): Brick[] => {

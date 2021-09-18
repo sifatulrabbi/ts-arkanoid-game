@@ -1,14 +1,13 @@
-import RED_BRICK_IMAGE from './images/brick-red.png';
-import BLUE_BRICK_IMAGE from './images/brick-blue.png';
-import GREEN_BRICK_IMAGE from './images/brick-green.png';
-import YELLOW_BRICK_IMAGE from './images/brick-yellow.png';
-import PURPLE_BRICK_IMAGE from './images/brick-purple.png';
+import {
+    RED_BRICK_IMAGE,
+    BLUE_BRICK_IMAGE,
+    GREEN_BRICK_IMAGE,
+    YELLOW_BRICK_IMAGE,
+    PURPLE_BRICK_IMAGE,
+} from './images';
 
-// Grab the canvas element for calculating the brick width
-// depending on canvas width
 const canvas: HTMLCanvasElement | null = document.querySelector('#playField');
 
-// Constants
 export const STAGE_PADDING = 10;
 export const STAGE_ROWS = 20;
 export const STAGE_COLS = 10;
@@ -40,7 +39,7 @@ export const BRICK_ENERGY: { [key: number]: number } = {
     1: 1, // Red brick
     2: 1, // Green brick
     3: 2, // Yellow brick
-    4: 2, // Blue brick
+    4: 4, // Blue brick
     5: 3, // Purple brick
 };
 

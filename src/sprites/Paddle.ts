@@ -20,12 +20,10 @@ export class Paddle {
         this.moveRight = false;
         this.paddleImage.src = image;
 
-        // Event Listeners
         document.addEventListener('keydown', this.handleKeyDown);
         document.addEventListener('keyup', this.handleKeyUp);
     }
 
-    // Getters
     get width(): number {
         return this.paddleWidth;
     }
