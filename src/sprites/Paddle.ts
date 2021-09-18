@@ -1,6 +1,6 @@
 import { Vector } from '../types';
 
-export class Paddle {
+export default class Paddle {
     private paddleImage: HTMLImageElement = new Image();
     private moveLeft: boolean;
     private moveRight: boolean;

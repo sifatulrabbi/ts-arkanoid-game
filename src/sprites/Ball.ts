@@ -1,6 +1,6 @@
 import { Vector } from '../types';
 
-export class Ball {
+export default class Ball {
     private speed: Vector;
     private ballImage: HTMLImageElement = new Image();
 

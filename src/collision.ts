@@ -1,9 +1,9 @@
-import { CanvasView } from './views/CanvasView';
-import { Brick } from './sprites/Brick';
-import { Ball } from './sprites/Ball';
-import { Paddle } from './sprites/Paddle';
+import Canvas from './views/Canvas';
+import Brick from './sprites/Brick';
+import Ball from './sprites/Ball';
+import Paddle from './sprites/Paddle';
 
-export class Collision {
+export default class Collision {
     private isCollidingBrick(ball: Ball, brick: Brick): boolean {
         if (
             ball.pos.x < brick.pos.x + brick.width &&
@@ -35,7 +35,7 @@ export class Collision {
         return colluding;
     }
 
-    public checkBallCollision(ball: Ball, paddle: Paddle, view: CanvasView): void {
+    public checkBallCollision(ball: Ball, paddle: Paddle, view: Canvas): void {
         if (
             ball.pos.x + ball.width > paddle.pos.x &&
             ball.pos.x < paddle.pos.x + paddle.width &&
@@ -54,7 +54,7 @@ export class Collision {
         }
     }
 
-    public checkOutOfCanvas(ball: Ball, view: CanvasView): boolean {
+    public checkOutOfCanvas(ball: Ball, view: Canvas): boolean {
         if (ball.pos.y > view.canvas.height) return true;
         return false;
     }
